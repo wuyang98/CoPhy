@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CoPhy: Distill to Think, Foresee to Act. Cognitive-Physical Reinforcement Learning for Autonomous Driving.">
+  <meta name="theme-color" content="#3273ac">
+  <title>CoPhy — Distill to Think, Foresee to Act</title>
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/js/index.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#abstract">Skip to content</a>
+<header class="hero">
+  <div class="container">
+    <p class="brand">CoPhy</p>
+    <h1>Distill to Think, Foresee to Act:<br>Cognitive-Physical Reinforcement Learning for Autonomous Driving</h1>
+    <p class="venue">NeurIPS 2026</p>
+    <div class="authors">
+      <span>Yang Wu<sup>1</sup></span><span>Qiang Meng<sup>†</sup></span><span>Zhaojiang Liu<sup>3</sup></span><span>Youquan Liu<sup>4</sup></span><span>Jian Yang<sup>1,2</sup></span><span>Jin Xie<sup>2,*</sup></span>
+    </div>
+    <div class="affiliations"><span><sup>1</sup> PCA Lab, Nanjing University of Science and Technology</span><span><sup>2</sup> Nanjing University</span><span><sup>3</sup> Shanghai Jiao Tong University</span><span><sup>4</sup> Fudan University</span></div>
+    <p class="notes">† Independent researcher. &nbsp; * Corresponding author.</p>
+    <div class="links" aria-label="Publication resources">
+      <a class="button" href="https://arxiv.org/pdf/2605.21139">Paper &amp; Appendix ↗</a>
+      <a class="button" href="https://github.com/wuyang98/CoPhy">Code ↗</a>
+      <a class="button" href="#demos">Video demos ↓</a>
+    </div>
+  </div>
+</header>
+<main>
+<section class="section" id="abstract">
+  <div class="container"><h2>Abstract</h2><div class="prose">
+    <p>Current end-to-end autonomous driving models are fundamentally constrained by the behavioral cloning ceiling of imitation learning. While reinforcement learning offers a path to smarter autonomy, it demands two missing pieces of infrastructure: (1) a cognitive foundation that understands traffic semantics and driving intent, and (2) a foresighted physical environment that can anticipate the consequences of candidate actions.</p>
+    <p>To this end, we propose <strong>CoPhy</strong>, a <strong>Co</strong>gnitive-<strong>Phy</strong>sical reinforcement learning framework for autonomous driving. To <em>distill to think</em>, we distill VLM knowledge into the BEV encoder and then discard the VLM entirely, retaining cognitive ability at zero inference cost while releasing the cognitive channel as a pluggable interface for optional human language commands. To <em>foresee to act</em>, we build an auto-regressive BEV world model that explicitly predicts future semantic maps conditioned on candidate actions, serving as an interpretable physical sandbox from which safety metrics are directly derived.</p>
+    <p>Built upon this dual infrastructure, we optimize the driving policy via GRPO with a novel dual-reward mechanism: a <em>physical</em> reward derived from BEV rollouts enforces hard safety constraints, while a <em>cognitive</em> reward from a language-aligned scorer ensures intent compliance. Extensive experiments demonstrate that CoPhy not only achieves state-of-the-art results on NAVSIM v1 and v2 benchmarks, but also enables safer driving via cognitively informed scene compliance and flexible intent control through user-defined language instructions.</p>
+  </div></div>
+</section>
+<section class="section light" id="method">
+  <div class="container">
+    <h2>Distill to Think. Foresee to Act.</h2>
+    <p class="intro">Cognitive priors, predictive physical reasoning, and dual-reward policy optimization in one driving framework.</p>
+    <figure class="method-figure" id="method-figure"><img src="imgs/flowchart.png" alt="CoPhy framework: cross-modal cognitive distillation, action-conditioned BEV world-model rollout, and cognitive-physical reinforcement learning." loading="lazy"><figcaption>Overview of CoPhy. VLM knowledge enriches the BEV representation, while predicted future semantic maps support physical reward evaluation.</figcaption></figure>
+    <div class="method-grid">
+      <article><p class="method-number">01 / DISTILL</p><h3>Cognitive prior distillation</h3><p>Transfer VLM knowledge into the BEV encoder to capture traffic semantics and driving intent without retaining the VLM at inference.</p></article>
+      <article><p class="method-number">02 / FORESEE</p><h3>Predictive world model</h3><p>Roll out future semantic BEV maps conditioned on candidate actions, making their predicted physical consequences explicit.</p></article>
+      <article><p class="method-number">03 / OPTIMIZE</p><h3>Cognitive-physical RL</h3><p>Optimize the driving policy with GRPO, combining physical safety rewards with cognitive intent-alignment rewards.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section" id="demos">
+  <div class="container">
+    <h2>Video Demonstrations</h2>
+    <p class="intro">Explore CoPhy's driving visualizations across diverse road conditions. Select a video to play; starting another pauses the previous clip.</p>
+    <nav class="jump-links" aria-label="Video collections"><a class="button" href="#driving">Diverse road conditions</a><a class="button" href="#language">Scene-aware driving</a><a class="button" href="#bev">Future BEV prediction</a></nav>
+    <div class="video-group" id="driving"><h3>Driving Demos Across Diverse Road Conditions</h3>
+      <p class="intro">These driving visualizations showcase turning, lane keeping, and car following in varied environments, including rainy weather, construction zones, winding roads, busy intersections, and congested traffic with limited visibility. Red trajectories represent model predictions, while green trajectories represent the ground truth (GT).</p>
+      <div class="video-grid">
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Demo test 2"><source src="videos/demo_test_2.mp4" type="video/mp4"><a href="videos/demo_test_2.mp4">Download video</a></video><figcaption><strong>Sharp Turning in Rain</strong><br>A large steering maneuver in rainy conditions.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Demo test 6"><source src="videos/demo_test_6.mp4" type="video/mp4"><a href="videos/demo_test_6.mp4">Download video</a></video><figcaption><strong>Driving Through a Construction Zone</strong><br>Lane keeping and turning through a road construction area.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Demo test 7"><source src="videos/demo_test_7.mp4" type="video/mp4"><a href="videos/demo_test_7.mp4">Download video</a></video><figcaption><strong>Continuous Turns on a Winding Road</strong><br>Following successive curves with continuous steering adjustments.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Demo test 13"><source src="videos/demo_test_13.mp4" type="video/mp4"><a href="videos/demo_test_13.mp4">Download video</a></video><figcaption><strong>Turning at a Busy Intersection</strong><br>A turning maneuver at an intersection with busy traffic.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Demo test 17"><source src="videos/demo_test_17.mp4" type="video/mp4"><a href="videos/demo_test_17.mp4">Download video</a></video><figcaption><strong>Car Following in Congested Traffic</strong><br>Following the vehicle ahead along a crowded road segment.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Demo test 29"><source src="videos/demo_test_29.mp4" type="video/mp4"><a href="videos/demo_test_29.mp4">Download video</a></video><figcaption><strong>Successive Curves on an Undulating Road</strong><br>Driving through continuous bends over changing road elevations.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Demo test 34"><source src="videos/demo_test_34.mp4" type="video/mp4"><a href="videos/demo_test_34.mp4">Download video</a></video><figcaption><strong>Car Following with Limited Visibility</strong><br>Following traffic on a congested road with a restricted view ahead.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Demo test 40"><source src="videos/demo_test_40.mp4" type="video/mp4"><a href="videos/demo_test_40.mp4">Download video</a></video><figcaption><strong>Turning on a Tree-Lined Road</strong><br>A turning maneuver along a tree-shaded road segment.</figcaption></figure>
+    </div></div>
+    <div class="video-group" id="language"><h3>Scene-Aware Driving</h3>
+      <p class="intro">These examples illustrate driving informed by scene semantics, including traffic signals, intersection layouts, sidewalks, bicycle lanes, and speed limits. CoPhy combines cognitive scene understanding with physical reasoning to guide driving behavior in context.</p>
+      <div class="video-grid">
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Crossing an intersection on green in sunny weather"><source src="videos/demo_text_1.mp4" type="video/mp4"><a href="videos/demo_text_1.mp4">Download video</a></video><figcaption><strong>Crossing on Green in Sunny Weather</strong><br>Proceeding through a green-light intersection in sunny conditions.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Slow driving at a T-junction"><source src="videos/demo_text_2.mp4" type="video/mp4"><a href="videos/demo_text_2.mp4">Download video</a></video><figcaption><strong>Slowing Down at a T-Junction</strong><br>Navigating a T-junction at low speed.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Following traffic on green beside a sidewalk"><source src="videos/demo_text_4.mp4" type="video/mp4"><a href="videos/demo_text_4.mp4">Download video</a></video><figcaption><strong>Following Traffic on Green Beside a Sidewalk</strong><br>Following the vehicle ahead through a green light while driving close to a sidewalk.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Driving along a curve on a tree-lined road"><source src="videos/demo_text_5.mp4" type="video/mp4"><a href="videos/demo_text_5.mp4">Download video</a></video><figcaption><strong>Following a Tree-Lined Curve</strong><br>Driving through a bend along a tree-shaded road.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Turning beside a bicycle lane"><source src="videos/demo_text_6.mp4" type="video/mp4"><a href="videos/demo_text_6.mp4">Download video</a></video><figcaption><strong>Turning Beside a Bicycle Lane</strong><br>Executing a turn alongside a bicycle lane.</figcaption></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="Speed-limited turning on a service road"><source src="videos/demo_text_7.mp4" type="video/mp4"><a href="videos/demo_text_7.mp4">Download video</a></video><figcaption><strong>Speed-Limited Turning on a Service Road</strong><br>Negotiating a turn on a service road while observing the speed limit.</figcaption></figure>
+    </div></div>
+    <div class="video-group" id="bev"><h3>Future BEV Prediction</h3><div class="video-grid">
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="BEV demo 2"><source src="videos/bev_demo_2.mp4" type="video/mp4"><a href="videos/bev_demo_2.mp4">Download video</a></video></figure>
+      <figure class="video-card"><video controls muted loop playsinline preload="none" aria-label="BEV demo 6"><source src="videos/bev_demo_6.mp4" type="video/mp4"><a href="videos/bev_demo_6.mp4">Download video</a></video></figure>
+    </div></div>
+  </div>
+</section>
+<section class="section light" id="human-commands">
+  <div class="container">
+    <h2>Human Commands Shape Driving Trajectories</h2>
+    <p class="intro">Human language commands allow CoPhy to adapt its planned driving trajectories to different driving intents.</p>
+    <figure class="method-figure">
+      <img src="imgs/human.png" alt="Examples of human language commands changing CoPhy's planned driving trajectories." loading="lazy">
+    </figure>
+  </div>
+</section>
+<section class="section" id="bibtex"><div class="container">
+  <div class="citation-head"><h2>BibTeX</h2><button class="button" id="copy-bibtex" type="button">Copy citation</button></div>
+  <pre><code id="citation">@article{wu2026distill,
+  title={Distill to Think, Foresee to Act: Cognitive-Physical Reinforcement Learning for Autonomous Driving},
+  author={Wu, Yang and Meng, Qiang and Liu, Zhaojiang and Liu, Youquan and Yang, Jian and Xie, Jin},
+  journal={arXiv preprint arXiv:2605.21139},
+  year={2026}
+}</code></pre>
+  <p id="copy-status" role="status" aria-live="polite"></p>
+</div></section>
+</main>
+<footer>CoPhy · Cognitive-Physical Reinforcement Learning for Autonomous Driving</footer>
+</body>
+</html>
